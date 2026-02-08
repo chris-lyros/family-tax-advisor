@@ -1,0 +1,560 @@
+<!--
+  LYROS FAMILY TAX ADVISOR — Webflow HTML Embed (Markup Only)
+  ============================================================
+  Paste this into a Webflow HTML Embed element on the family-tax page.
+  CSS and JS are loaded externally via Page Settings custom code.
+
+  Version: 2.0.0 | Updated: 2026-02-08
+  WEBHOOK: POST /webhook/family-tax-advisor
+  SCHEMA:  trigger.v1.family_tax_form
+-->
+
+<div class="lta-root" id="ltaRoot">
+
+  <!-- Header -->
+  <div class="lta-header">
+    <div class="lta-badge">Free Analysis Tool</div>
+    <h1>Family Tax Advantage Finder</h1>
+    <p>Answer a few questions about your household and we'll identify tax advantages, offsets, and government benefits you might be missing.</p>
+  </div>
+
+  <!-- Progress -->
+  <div class="lta-progress-wrap" id="ltaProgress">
+    <span class="lta-progress-label" id="ltaProgressLabel">1 / 3</span>
+    <div class="lta-progress-step active" data-step="1"></div>
+    <div class="lta-progress-step" data-step="2"></div>
+    <div class="lta-progress-step" data-step="3"></div>
+  </div>
+
+  <!-- ============ SECTION 1: HOUSEHOLD ============ -->
+  <div class="lta-section visible" data-section="1">
+    <div class="lta-section-header">
+      <div class="lta-section-num">1</div>
+      <div>
+        <div class="lta-section-title">Household Basics</div>
+        <div class="lta-section-subtitle">Tell us about your family setup</div>
+      </div>
+    </div>
+
+    <div class="lta-row">
+      <div class="lta-field">
+        <label class="lta-label">State / Territory <span class="req">*</span></label>
+        <select class="lta-select" id="fState" aria-required="true" required>
+          <option value="">Select state</option>
+          <option value="NSW">NSW</option>
+          <option value="VIC">VIC</option>
+          <option value="QLD">QLD</option>
+          <option value="SA">SA</option>
+          <option value="WA">WA</option>
+          <option value="TAS">TAS</option>
+          <option value="NT">NT</option>
+          <option value="ACT">ACT</option>
+        </select>
+        <div class="lta-error-msg" id="errState">Please select your state</div>
+      </div>
+      <div class="lta-field">
+        <label class="lta-label">Relationship Status <span class="req">*</span></label>
+        <select class="lta-select" id="fRelationship" aria-required="true" required>
+          <option value="">Select status</option>
+          <option value="single">Single</option>
+          <option value="married">Married / De facto</option>
+          <option value="separated">Separated</option>
+          <option value="widowed">Widowed</option>
+        </select>
+        <div class="lta-error-msg" id="errRelationship">Please select your relationship status</div>
+      </div>
+    </div>
+
+    <div class="lta-row">
+      <div class="lta-field">
+        <label class="lta-label">Number of Dependent Children <span class="req">*</span></label>
+        <select class="lta-select" id="fDependants">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5+</option>
+        </select>
+      </div>
+      <div class="lta-field lta-conditional" id="fDependantAgesWrap">
+        <label class="lta-label">Ages of Children</label>
+        <div class="lta-chips" id="fDependantAges" data-field="dependant_ages" role="group" aria-label="Ages of children">
+          <div class="lta-chip" data-value="0-1">0–1</div>
+          <div class="lta-chip" data-value="2-4">2–4</div>
+          <div class="lta-chip" data-value="5-12">5–12</div>
+          <div class="lta-chip" data-value="13-15">13–15</div>
+          <div class="lta-chip" data-value="16-18">16–18</div>
+        </div>
+        <div class="lta-hint">Select all that apply</div>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Age Range of Adults <span class="req">*</span></label>
+      <div class="lta-chips" id="fAdultAges" data-field="adult_ages" role="group" aria-label="Age range of adults">
+        <div class="lta-chip" data-value="18-29">18–29</div>
+        <div class="lta-chip" data-value="30-54">30–54</div>
+        <div class="lta-chip" data-value="55-59">55–59</div>
+        <div class="lta-chip" data-value="60-64">60–64</div>
+        <div class="lta-chip" data-value="65-66">65–66</div>
+        <div class="lta-chip" data-value="67-74">67–74</div>
+        <div class="lta-chip" data-value="75+">75+</div>
+      </div>
+      <div class="lta-hint">Select all adults in your household</div>
+      <div class="lta-error-msg" id="errAdultAges">Select at least one age range</div>
+    </div>
+
+    <div class="lta-nav-row">
+      <button class="lta-btn lta-btn-primary" onclick="ltaNext(1)">Continue</button>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 2: INCOME ============ -->
+  <div class="lta-section" data-section="2">
+    <div class="lta-section-header">
+      <div class="lta-section-num">2</div>
+      <div>
+        <div class="lta-section-title">Income Profile</div>
+        <div class="lta-section-subtitle">We use ranges — no exact figures needed</div>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Combined Household Gross Income <span class="req">*</span></label>
+      <div class="lta-radios" id="fIncomeRange" data-field="household_income_range" role="radiogroup" aria-label="Combined household gross income">
+        <div class="lta-radio" data-value="under_45k">Under $45k</div>
+        <div class="lta-radio" data-value="45k_65k">$45k – $65k</div>
+        <div class="lta-radio" data-value="65k_90k">$65k – $90k</div>
+        <div class="lta-radio" data-value="90k_120k">$90k – $120k</div>
+        <div class="lta-radio" data-value="120k_180k">$120k – $180k</div>
+        <div class="lta-radio" data-value="180k_250k">$180k – $250k</div>
+        <div class="lta-radio" data-value="250k_plus">$250k+</div>
+      </div>
+      <div class="lta-error-msg" id="errIncome">Please select an income range</div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">How Is Income Split? <span class="req">*</span></label>
+      <div class="lta-radios" id="fIncomeSplit" data-field="income_split" role="radiogroup" aria-label="Income split">
+        <div class="lta-radio" data-value="roughly_equal">Roughly Equal</div>
+        <div class="lta-radio" data-value="one_earner_dominant">One Earner Dominant (70/30+)</div>
+        <div class="lta-radio" data-value="single_income">Single Income</div>
+      </div>
+      <div class="lta-error-msg" id="errSplit">Please select how income is split</div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Types of Income Received <span class="req">*</span></label>
+      <div class="lta-chips" id="fIncomeTypes" data-field="income_types" role="group" aria-label="Types of income received">
+        <div class="lta-chip" data-value="salary">Salary / Wages</div>
+        <div class="lta-chip" data-value="sole_trader">Sole Trader / ABN</div>
+        <div class="lta-chip" data-value="rental">Rental Property</div>
+        <div class="lta-chip" data-value="dividends">Dividends / Shares</div>
+        <div class="lta-chip" data-value="capital_gains">Capital Gains</div>
+        <div class="lta-chip" data-value="centrelink">Centrelink Payments</div>
+        <div class="lta-chip" data-value="foreign">Foreign Income</div>
+      </div>
+      <div class="lta-hint">Select all that apply</div>
+      <div class="lta-error-msg" id="errIncomeTypes">Select at least one income type</div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Does Anyone Salary Sacrifice to Super?</label>
+      <div class="lta-radios" id="fSalarySac" data-field="salary_sacrifice" role="radiogroup" aria-label="Salary sacrifice to super">
+        <div class="lta-radio" data-value="yes">Yes</div>
+        <div class="lta-radio" data-value="no">No</div>
+        <div class="lta-radio" data-value="not_sure">Not Sure</div>
+      </div>
+    </div>
+
+    <div class="lta-nav-row">
+      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(2)">← Back</button>
+      <button class="lta-btn lta-btn-primary" onclick="ltaNext(2)">Continue</button>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 3: PROPERTY ============ -->
+  <div class="lta-section" data-section="3">
+    <div class="lta-section-header">
+      <div class="lta-section-num">3</div>
+      <div>
+        <div class="lta-section-title">Property & Assets</div>
+        <div class="lta-section-subtitle">Your housing and investment situation</div>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Housing Situation <span class="req">*</span></label>
+      <div class="lta-radios" id="fHomeStatus" data-field="home_status" role="radiogroup" aria-label="Housing situation">
+        <div class="lta-radio" data-value="own_mortgage">Own (Mortgage)</div>
+        <div class="lta-radio" data-value="own_outright">Own (No Mortgage)</div>
+        <div class="lta-radio" data-value="renting">Renting</div>
+        <div class="lta-radio" data-value="living_with_family">Living with Family</div>
+      </div>
+      <div class="lta-error-msg" id="errHome">Please select your housing situation</div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Investment Property?</label>
+      <div class="lta-radios" id="fInvestProp" data-field="investment_property" role="radiogroup" aria-label="Investment property">
+        <div class="lta-radio" data-value="no">No</div>
+        <div class="lta-radio" data-value="yes_1">Yes – 1 Property</div>
+        <div class="lta-radio" data-value="yes_2_plus">Yes – 2+ Properties</div>
+      </div>
+    </div>
+
+    <div class="lta-row">
+      <div class="lta-field">
+        <label class="lta-label">Shares or Managed Funds?</label>
+        <div class="lta-radios" id="fShares" data-field="shares_or_funds" role="radiogroup" aria-label="Shares or managed funds">
+          <div class="lta-radio" data-value="no">No</div>
+          <div class="lta-radio" data-value="yes_under_50k">Under $50k</div>
+          <div class="lta-radio" data-value="yes_50k_250k">$50k – $250k</div>
+          <div class="lta-radio" data-value="yes_250k_plus">$250k+</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Cryptocurrency Holdings?</label>
+      <div class="lta-radios" id="fCrypto" data-field="crypto" role="radiogroup" aria-label="Cryptocurrency holdings">
+        <div class="lta-radio" data-value="no">No</div>
+        <div class="lta-radio" data-value="yes_under_10k">Under $10k</div>
+        <div class="lta-radio" data-value="yes_10k_plus">$10k+</div>
+      </div>
+    </div>
+
+    <div class="lta-nav-row">
+      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(3)">← Back</button>
+      <button class="lta-btn lta-btn-primary" onclick="ltaNext(3)">Continue to Contact Details</button>
+    </div>
+  </div>
+
+  <!-- ============ DEEP DIVE GATE ============ -->
+  <div class="lta-gate" id="ltaGate">
+    <h3>Want a Deeper Analysis?</h3>
+    <p>Answer a few more questions about super, deductions, health insurance, and recent life events for a more detailed report.</p>
+    <div class="lta-gate-btns">
+      <button class="lta-btn lta-btn-secondary" onclick="ltaSkipDeep()">Skip — Quick Snapshot is Fine</button>
+      <button class="lta-btn lta-btn-primary" style="width:auto;" onclick="ltaStartDeep()">Yes, Go Deeper</button>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 4: SUPER (Deep Dive) ============ -->
+  <div class="lta-section" data-section="4">
+    <div class="lta-section-header">
+      <div class="lta-section-num">4</div>
+      <div>
+        <div class="lta-section-title">Super & Retirement</div>
+        <div class="lta-section-subtitle">Contribution strategy opportunities</div>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Combined Super Balance</label>
+      <select class="lta-select" id="fSuperBalance">
+        <option value="">Select range</option>
+        <option value="under_50k">Under $50k</option>
+        <option value="50k_200k">$50k – $200k</option>
+        <option value="200k_500k">$200k – $500k</option>
+        <option value="500k_1m">$500k – $1M</option>
+        <option value="1m_1.9m">$1M – $1.9M</option>
+        <option value="1.9m_plus">$1.9M+</option>
+      </select>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Making Voluntary Super Contributions?</label>
+      <div class="lta-radios" id="fVoluntaryContrib" data-field="voluntary_contributions" role="radiogroup" aria-label="Voluntary super contributions">
+        <div class="lta-radio" data-value="salary_sacrifice">Salary Sacrifice</div>
+        <div class="lta-radio" data-value="personal_deductible">Personal Deductible</div>
+        <div class="lta-radio" data-value="after_tax">After-tax</div>
+        <div class="lta-radio" data-value="no">No</div>
+        <div class="lta-radio" data-value="not_sure">Not Sure</div>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Super Fund Type</label>
+      <div class="lta-chips" id="fSuperFundType" data-field="super_fund_type" role="group" aria-label="Super fund type">
+        <div class="lta-chip" data-value="industry">Industry Fund</div>
+        <div class="lta-chip" data-value="retail">Retail Fund</div>
+        <div class="lta-chip" data-value="smsf">SMSF</div>
+        <div class="lta-chip" data-value="defined_benefit">Defined Benefit</div>
+        <div class="lta-chip" data-value="not_sure">Not Sure</div>
+      </div>
+      <div class="lta-hint">Select all that apply across your household</div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Does Either Partner Have Super Under $40k AND Income Under $37k?</label>
+      <div class="lta-radios" id="fSpouseSuper" data-field="spouse_super_low" role="radiogroup" aria-label="Spouse super eligibility">
+        <div class="lta-radio" data-value="yes">Yes</div>
+        <div class="lta-radio" data-value="no">No</div>
+        <div class="lta-radio" data-value="not_sure">Not Sure</div>
+      </div>
+      <div class="lta-hint">This unlocks the spouse super contribution tax offset (up to $540)</div>
+    </div>
+
+    <div class="lta-nav-row">
+      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(4)">← Back</button>
+      <button class="lta-btn lta-btn-primary" onclick="ltaNext(4)">Continue</button>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 5: DEDUCTIONS (Deep Dive) ============ -->
+  <div class="lta-section" data-section="5">
+    <div class="lta-section-header">
+      <div class="lta-section-num">5</div>
+      <div>
+        <div class="lta-section-title">Work & Deductions</div>
+        <div class="lta-section-subtitle">Common deductions you might be missing</div>
+      </div>
+    </div>
+
+    <div class="lta-row">
+      <div class="lta-field">
+        <label class="lta-label">Work from Home?</label>
+        <select class="lta-select" id="fWFH">
+          <option value="">Select</option>
+          <option value="no">No</option>
+          <option value="1_2_days">1–2 Days / Week</option>
+          <option value="3_4_days">3–4 Days / Week</option>
+          <option value="full_time">Full-time WFH</option>
+        </select>
+      </div>
+      <div class="lta-field">
+        <label class="lta-label">Motor Vehicle for Work?</label>
+        <select class="lta-select" id="fVehicle">
+          <option value="">Select</option>
+          <option value="no">No</option>
+          <option value="under_5000km">Under 5,000km</option>
+          <option value="over_5000km">Over 5,000km</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Which of These Apply?</label>
+      <div class="lta-chips" id="fDeductions" data-field="deduction_flags" role="group" aria-label="Deduction categories">
+        <div class="lta-chip" data-value="uniform">Uniform / Protective Clothing</div>
+        <div class="lta-chip" data-value="self_education">Professional Development / Study</div>
+        <div class="lta-chip" data-value="union_fees">Union / Professional Fees</div>
+        <div class="lta-chip" data-value="income_protection">Income Protection Insurance</div>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Charitable Donations (DGR)?</label>
+      <select class="lta-select" id="fDonations">
+        <option value="">Select</option>
+        <option value="no">No</option>
+        <option value="under_250">Under $250</option>
+        <option value="250_1000">$250 – $1,000</option>
+        <option value="1000_5000">$1,000 – $5,000</option>
+        <option value="5000_plus">$5,000+</option>
+      </select>
+    </div>
+
+    <div class="lta-nav-row">
+      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(5)">← Back</button>
+      <button class="lta-btn lta-btn-primary" onclick="ltaNext(5)">Continue</button>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 6: HEALTH (Deep Dive) ============ -->
+  <div class="lta-section" data-section="6">
+    <div class="lta-section-header">
+      <div class="lta-section-num">6</div>
+      <div>
+        <div class="lta-section-title">Health & Insurance</div>
+        <div class="lta-section-subtitle">Medicare levy surcharge and PHI rebate check</div>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Private Health Insurance?</label>
+      <div class="lta-radios" id="fPHI" data-field="private_health" role="radiogroup" aria-label="Private health insurance">
+        <div class="lta-radio" data-value="hospital_extras">Hospital + Extras</div>
+        <div class="lta-radio" data-value="hospital_only">Hospital Only</div>
+        <div class="lta-radio" data-value="extras_only">Extras Only</div>
+        <div class="lta-radio" data-value="no">No</div>
+      </div>
+    </div>
+
+    <div class="lta-conditional" id="fPHIDetailsWrap">
+      <div class="lta-row">
+        <div class="lta-field">
+          <label class="lta-label">Cover Level</label>
+          <select class="lta-select" id="fPHILevel">
+            <option value="">Select</option>
+            <option value="basic">Basic</option>
+            <option value="bronze">Bronze</option>
+            <option value="silver">Silver</option>
+            <option value="gold">Gold</option>
+            <option value="not_sure">Not Sure</option>
+          </select>
+        </div>
+        <div class="lta-field">
+          <label class="lta-label">All Family Members Covered?</label>
+          <div class="lta-radios" id="fPHIAll" data-field="phi_all_covered" role="radiogroup" aria-label="All family covered">
+            <div class="lta-radio" data-value="yes">Yes</div>
+            <div class="lta-radio" data-value="no">No</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lta-nav-row">
+      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(6)">← Back</button>
+      <button class="lta-btn lta-btn-primary" onclick="ltaNext(6)">Continue</button>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 7: CHILDREN (Deep Dive) ============ -->
+  <div class="lta-section" data-section="7">
+    <div class="lta-section-header">
+      <div class="lta-section-num">7</div>
+      <div>
+        <div class="lta-section-title">Children & Childcare</div>
+        <div class="lta-section-subtitle">CCS and family benefit check</div>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Childcare Used?</label>
+      <div class="lta-chips" id="fChildcareType" data-field="childcare_type" role="group" aria-label="Childcare type">
+        <div class="lta-chip" data-value="long_day_care">Long Day Care</div>
+        <div class="lta-chip" data-value="family_day_care">Family Day Care</div>
+        <div class="lta-chip" data-value="oshc">Outside School Hours</div>
+        <div class="lta-chip" data-value="in_home">In-home Care</div>
+        <div class="lta-chip" data-value="none">None</div>
+      </div>
+    </div>
+
+    <div class="lta-conditional" id="fChildcareDaysWrap">
+      <div class="lta-field">
+        <label class="lta-label">Days Per Week in Childcare</label>
+        <select class="lta-select" id="fChildcareDays">
+          <option value="">Select</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Child with a Disability or Additional Needs?</label>
+      <div class="lta-radios" id="fChildDisability" data-field="child_disability" role="radiogroup" aria-label="Child disability or additional needs">
+        <div class="lta-radio" data-value="yes">Yes</div>
+        <div class="lta-radio" data-value="no">No</div>
+      </div>
+    </div>
+
+    <div class="lta-nav-row">
+      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(7)">← Back</button>
+      <button class="lta-btn lta-btn-primary" onclick="ltaNext(7)">Continue</button>
+    </div>
+  </div>
+
+  <!-- ============ SECTION 8: LIFE EVENTS (Deep Dive) ============ -->
+  <div class="lta-section" data-section="8">
+    <div class="lta-section-header">
+      <div class="lta-section-num">8</div>
+      <div>
+        <div class="lta-section-title">Life Events</div>
+        <div class="lta-section-subtitle">Anything that changed in the last 12 months?</div>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <div class="lta-chips" id="fLifeEvents" data-field="life_events" role="group" aria-label="Life events in last 12 months">
+        <div class="lta-chip" data-value="had_baby">Had a Baby</div>
+        <div class="lta-chip" data-value="bought_property">Bought Property</div>
+        <div class="lta-chip" data-value="sold_property">Sold Property</div>
+        <div class="lta-chip" data-value="changed_jobs">Changed Jobs</div>
+        <div class="lta-chip" data-value="started_business">Started a Business</div>
+        <div class="lta-chip" data-value="closed_business">Closed a Business</div>
+        <div class="lta-chip" data-value="separated">Separated / Divorced</div>
+        <div class="lta-chip" data-value="inheritance">Received Inheritance</div>
+        <div class="lta-chip" data-value="moved_interstate">Moved Interstate</div>
+        <div class="lta-chip" data-value="none">None of the Above</div>
+      </div>
+    </div>
+
+    <div class="lta-nav-row">
+      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(8)">← Back</button>
+      <button class="lta-btn lta-btn-primary" onclick="ltaNext(8)">Continue to Contact Details</button>
+    </div>
+  </div>
+
+  <!-- ============ CONTACT SECTION ============ -->
+  <div class="lta-section" data-section="contact">
+    <div class="lta-section-header">
+      <div class="lta-section-num">✉</div>
+      <div>
+        <div class="lta-section-title">Where Should We Send Your Report?</div>
+        <div class="lta-section-subtitle">We'll email your personalised analysis within a few minutes</div>
+      </div>
+    </div>
+
+    <div class="lta-row">
+      <div class="lta-field">
+        <label class="lta-label">First Name <span class="req">*</span></label>
+        <input class="lta-input" type="text" id="fFirstName" placeholder="Jane" required aria-required="true" autocomplete="given-name" />
+        <div class="lta-error-msg" id="errFirstName">Please enter your first name</div>
+      </div>
+      <div class="lta-field">
+        <label class="lta-label">Email Address <span class="req">*</span></label>
+        <input class="lta-input" type="email" id="fEmail" placeholder="jane@example.com" required aria-required="true" autocomplete="email" />
+        <div class="lta-error-msg" id="errEmail">Please enter a valid email address</div>
+      </div>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-label">Phone (Optional)</label>
+      <input class="lta-input" type="tel" id="fPhone" placeholder="0412 345 678" autocomplete="tel" inputmode="tel" />
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-check-row">
+        <input type="checkbox" id="fConsentMarketing" />
+        <span class="lta-check-text">Send me occasional tips on tax savings and financial planning</span>
+      </label>
+    </div>
+
+    <div class="lta-field">
+      <label class="lta-check-row" id="disclaimerRow">
+        <input type="checkbox" id="fConsentDisclaimer" required aria-required="true" />
+        <span class="lta-check-text">I understand this tool provides <strong>general information only</strong> and does not constitute personal tax, financial, or legal advice. I should consult a registered tax agent before acting on any recommendations. <span class="req">*</span></span>
+      </label>
+      <div class="lta-error-msg" id="errDisclaimer">You must accept the disclaimer to continue</div>
+    </div>
+
+    <div class="lta-nav-row">
+      <button class="lta-btn lta-btn-ghost" onclick="ltaBackContact()">← Back</button>
+      <button class="lta-btn lta-btn-primary" id="ltaSubmitBtn" onclick="ltaSubmit()">
+        Get My Free Tax Report
+      </button>
+    </div>
+    <div class="lta-submit-error" id="ltaSubmitError">
+      Something went wrong — please try again. If the problem persists, email <a href="mailto:chris@lyros.com.au">chris@lyros.com.au</a> for help.
+    </div>
+  </div>
+
+  <!-- ============ SUCCESS ============ -->
+  <div class="lta-success" id="ltaSuccess">
+    <div class="lta-success-icon">✓</div>
+    <h2>Your Report Is On Its Way</h2>
+    <p id="ltaSuccessMsg">Check your inbox — we're generating your personalised Family Tax Advantage Report now. It usually arrives within 2–3 minutes.</p>
+  </div>
+
+  <div class="lta-disclaimer" id="ltaDisclaimer">
+    This tool provides general information only and does not constitute personal financial, tax, or legal advice.<br/>
+    Lyros Pty Ltd (ACN 689 015 165) is not a registered tax agent or holder of an AFSL. FY2025-26 rules apply.
+  </div>
+</div>
