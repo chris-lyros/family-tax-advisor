@@ -1,11 +1,11 @@
 /**
- * LYROS FAMILY TAX ADVISOR — Form Styles
+ * LYROS FAMILY TAX ADVISOR â€” Form Styles
  * ========================================
  * Repo:    github.com/chris-lyros/family-tax-advisor
- * Version: 2.0.0
- * Updated: 2026-02-08
+ * Version: 3.0.0
+ * Updated: 2026-02-09
  *
- * Loaded via jsDelivr CDN in Webflow Page Settings → Head Code.
+ * Loaded via jsDelivr CDN in Webflow Page Settings â†’ Head Code.
  * HTML embed on the page provides the markup; JS loaded in Footer Code.
  */
 
@@ -58,7 +58,7 @@
   border-radius: 20px;
   margin-bottom: 20px;
 }
-.lta-badge::before { content: "●"; font-size: 8px; animation: lta-pulse 2s infinite; }
+.lta-badge::before { content: "â—"; font-size: 8px; animation: lta-pulse 2s infinite; }
 @keyframes lta-pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
 
 .lta-header h1 {
@@ -282,23 +282,34 @@
 }
 .lta-check-row:hover { border-color: rgba(16,185,129,0.3); }
 .lta-check-row input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px;
+  min-height: 20px;
   border: 2px solid var(--text-dim);
   border-radius: 4px;
   flex-shrink: 0;
   margin-top: 2px;
   cursor: pointer;
   transition: all 0.2s;
-  position: relative;
+  position: relative !important;
+  pointer-events: auto !important;
+  opacity: 1 !important;
+  display: inline-block !important;
+  background: var(--bg-input);
+  clip: auto !important;
+  clip-path: none !important;
+  overflow: visible !important;
 }
 .lta-check-row input[type="checkbox"]:checked {
   background: var(--emerald);
   border-color: var(--emerald);
 }
 .lta-check-row input[type="checkbox"]:checked::after {
-  content: "✓";
+  content: "âœ“";
   position: absolute;
   color: white;
   font-size: 13px;
