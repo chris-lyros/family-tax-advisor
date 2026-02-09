@@ -4,9 +4,16 @@
   Paste this into a Webflow HTML Embed element on the family-tax page.
   CSS and JS are loaded externally via Page Settings custom code.
 
-  Version: 2.0.0 | Updated: 2026-02-08
+  Version: 3.0.0 | Updated: 2026-02-09
   WEBHOOK: POST /webhook/family-tax-advisor
   SCHEMA:  trigger.v1.family_tax_form
+
+  CHANGELOG v3.0.0:
+  - PROMOTED private_health from deep dive Section 6 → quick snapshot Section 3
+  - PROMOTED work_from_home from deep dive Section 5 → quick snapshot Section 2
+  - ADDED existing_benefits chip selector to Section 1 (conditional on dependants > 0)
+  - Deep dive Section 5 retains WFH select as fWFHDeep for refinement
+  - Deep dive Section 6 retains PHI detail fields (cover level, all covered) extending Section 3 answer
 -->
 
 <div class="lta-root" id="ltaRoot">
@@ -90,6 +97,20 @@
       </div>
     </div>
 
+    <!-- NEW v3.0.0: Existing benefits (conditional on dependants > 0) -->
+    <div class="lta-field lta-conditional" id="fExistingBenefitsWrap">
+      <label class="lta-label">Currently Receiving Any of These?</label>
+      <div class="lta-chips" id="fExistingBenefits" data-field="existing_benefits" role="group" aria-label="Benefits currently received">
+        <div class="lta-chip" data-value="ftb_a">Family Tax Benefit A</div>
+        <div class="lta-chip" data-value="ftb_b">Family Tax Benefit B</div>
+        <div class="lta-chip" data-value="ccs">Child Care Subsidy</div>
+        <div class="lta-chip" data-value="carer">Carer Allowance / Payment</div>
+        <div class="lta-chip" data-value="not_sure">Not Sure</div>
+        <div class="lta-chip" data-value="none">None</div>
+      </div>
+      <div class="lta-hint">Select all that apply — helps us tailor your report</div>
+    </div>
+
     <div class="lta-field">
       <label class="lta-label">Age Range of Adults <span class="req">*</span></label>
       <div class="lta-chips" id="fAdultAges" data-field="adult_ages" role="group" aria-label="Age range of adults">
@@ -168,6 +189,17 @@
       </div>
     </div>
 
+    <!-- NEW v3.0.0: Work From Home (promoted from deep dive Section 5) -->
+    <div class="lta-field">
+      <label class="lta-label">Work From Home?</label>
+      <div class="lta-radios" id="fWFH" data-field="work_from_home" role="radiogroup" aria-label="Work from home frequency">
+        <div class="lta-radio" data-value="no">No</div>
+        <div class="lta-radio" data-value="1_2_days">1–2 Days / Week</div>
+        <div class="lta-radio" data-value="3_4_days">3–4 Days / Week</div>
+        <div class="lta-radio" data-value="full_time">Full-time WFH</div>
+      </div>
+    </div>
+
     <div class="lta-nav-row">
       <button class="lta-btn lta-btn-ghost" onclick="ltaBack(2)">← Back</button>
       <button class="lta-btn lta-btn-primary" onclick="ltaNext(2)">Continue</button>
@@ -225,6 +257,17 @@
       </div>
     </div>
 
+    <!-- NEW v3.0.0: Private Health Insurance (promoted from deep dive Section 6) -->
+    <div class="lta-field">
+      <label class="lta-label">Private Health Insurance?</label>
+      <div class="lta-radios" id="fPHI" data-field="private_health" role="radiogroup" aria-label="Private health insurance">
+        <div class="lta-radio" data-value="hospital_extras">Hospital + Extras</div>
+        <div class="lta-radio" data-value="hospital_only">Hospital Only</div>
+        <div class="lta-radio" data-value="extras_only">Extras Only</div>
+        <div class="lta-radio" data-value="no">No</div>
+      </div>
+    </div>
+
     <div class="lta-nav-row">
       <button class="lta-btn lta-btn-ghost" onclick="ltaBack(3)">← Back</button>
       <button class="lta-btn lta-btn-primary" onclick="ltaNext(3)">Continue to Contact Details</button>
@@ -234,7 +277,7 @@
   <!-- ============ DEEP DIVE GATE ============ -->
   <div class="lta-gate" id="ltaGate">
     <h3>Want a Deeper Analysis?</h3>
-    <p>Answer a few more questions about super, deductions, health insurance, and recent life events for a more detailed report.</p>
+    <p>Answer a few more questions about super, deductions, childcare, and recent life events for a more detailed report.</p>
     <div class="lta-gate-btns">
       <button class="lta-btn lta-btn-secondary" onclick="ltaSkipDeep()">Skip — Quick Snapshot is Fine</button>
       <button class="lta-btn lta-btn-primary" style="width:auto;" onclick="ltaStartDeep()">Yes, Go Deeper</button>
@@ -304,6 +347,7 @@
   </div>
 
   <!-- ============ SECTION 5: DEDUCTIONS (Deep Dive) ============ -->
+  <!-- NOTE v3.0.0: WFH question removed (now in Section 2). Motor vehicle + other deductions remain. -->
   <div class="lta-section" data-section="5">
     <div class="lta-section-header">
       <div class="lta-section-num">5</div>
@@ -313,26 +357,14 @@
       </div>
     </div>
 
-    <div class="lta-row">
-      <div class="lta-field">
-        <label class="lta-label">Work from Home?</label>
-        <select class="lta-select" id="fWFH">
-          <option value="">Select</option>
-          <option value="no">No</option>
-          <option value="1_2_days">1–2 Days / Week</option>
-          <option value="3_4_days">3–4 Days / Week</option>
-          <option value="full_time">Full-time WFH</option>
-        </select>
-      </div>
-      <div class="lta-field">
-        <label class="lta-label">Motor Vehicle for Work?</label>
-        <select class="lta-select" id="fVehicle">
-          <option value="">Select</option>
-          <option value="no">No</option>
-          <option value="under_5000km">Under 5,000km</option>
-          <option value="over_5000km">Over 5,000km</option>
-        </select>
-      </div>
+    <div class="lta-field">
+      <label class="lta-label">Motor Vehicle for Work?</label>
+      <select class="lta-select" id="fVehicle">
+        <option value="">Select</option>
+        <option value="no">No</option>
+        <option value="under_5000km">Under 5,000km</option>
+        <option value="over_5000km">Over 5,000km</option>
+      </select>
     </div>
 
     <div class="lta-field">
@@ -364,26 +396,19 @@
   </div>
 
   <!-- ============ SECTION 6: HEALTH (Deep Dive) ============ -->
+  <!-- NOTE v3.0.0: PHI base question moved to Section 3. This section now shows
+       DETAIL FIELDS ONLY (cover level, all covered) conditional on Section 3 PHI answer. -->
   <div class="lta-section" data-section="6">
     <div class="lta-section-header">
       <div class="lta-section-num">6</div>
       <div>
-        <div class="lta-section-title">Health & Insurance</div>
-        <div class="lta-section-subtitle">Medicare levy surcharge and PHI rebate check</div>
+        <div class="lta-section-title">Health Insurance Details</div>
+        <div class="lta-section-subtitle">A couple more details about your cover</div>
       </div>
     </div>
 
-    <div class="lta-field">
-      <label class="lta-label">Private Health Insurance?</label>
-      <div class="lta-radios" id="fPHI" data-field="private_health" role="radiogroup" aria-label="Private health insurance">
-        <div class="lta-radio" data-value="hospital_extras">Hospital + Extras</div>
-        <div class="lta-radio" data-value="hospital_only">Hospital Only</div>
-        <div class="lta-radio" data-value="extras_only">Extras Only</div>
-        <div class="lta-radio" data-value="no">No</div>
-      </div>
-    </div>
-
-    <div class="lta-conditional" id="fPHIDetailsWrap">
+    <!-- Show detail fields if PHI answered hospital_extras or hospital_only in Section 3 -->
+    <div id="fPHIDetailsDeep">
       <div class="lta-row">
         <div class="lta-field">
           <label class="lta-label">Cover Level</label>
@@ -406,6 +431,11 @@
       </div>
     </div>
 
+    <!-- Message if no hospital cover selected in Section 3 -->
+    <div id="fPHINoDetailMsg" class="lta-hint" style="display:none; text-align:center; padding:20px 0;">
+      You indicated no hospital cover — no further details needed here. Click continue.
+    </div>
+
     <div class="lta-nav-row">
       <button class="lta-btn lta-btn-ghost" onclick="ltaBack(6)">← Back</button>
       <button class="lta-btn lta-btn-primary" onclick="ltaNext(6)">Continue</button>
@@ -418,7 +448,7 @@
       <div class="lta-section-num">7</div>
       <div>
         <div class="lta-section-title">Children & Childcare</div>
-        <div class="lta-section-subtitle">CCS and family benefit check</div>
+        <div class="lta-section-subtitle">Child Care Subsidy (CCS) and family benefit check</div>
       </div>
     </div>
 
@@ -548,7 +578,7 @@
 
   <!-- ============ SUCCESS ============ -->
   <div class="lta-success" id="ltaSuccess">
-    <div class="lta-success-icon">✓</div>
+    <div class="lta-success-icon">✔</div>
     <h2>Your Report Is On Its Way</h2>
     <p id="ltaSuccessMsg">Check your inbox — we're generating your personalised Family Tax Advantage Report now. It usually arrives within 2–3 minutes.</p>
   </div>
