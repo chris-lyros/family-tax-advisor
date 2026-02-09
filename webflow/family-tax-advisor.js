@@ -2,14 +2,22 @@
  * LYROS FAMILY TAX ADVISOR — Form Logic
  * =======================================
  * Repo:    github.com/chris-lyros/family-tax-advisor
- * Version: 2.0.0
- * Updated: 2026-02-08
+ * Version: 3.0.0
+ * Updated: 2026-02-09
  *
  * Loaded via jsDelivr CDN in Webflow Page Settings → Footer Code.
  * HTML embed on the page provides the markup; CSS loaded in Head Code.
  *
  * WEBHOOK: POST /webhook/family-tax-advisor
  * SCHEMA:  trigger.v1.family_tax_form
+ *
+ * CHANGELOG v3.0.0:
+ * - PROMOTED work_from_home to base payload (Section 2 radios, always sent)
+ * - PROMOTED private_health to base payload (Section 3 radios, always sent)
+ * - ADDED existing_benefits to base payload (Section 1 chips, conditional)
+ * - Deep dive Section 5 no longer has WFH field (removed from HTML)
+ * - Deep dive Section 6 shows PHI detail fields conditional on Section 3 answer
+ * - Deep dive payload no longer duplicates work_from_home / private_health
  */
 
 (function() {
@@ -55,18 +63,31 @@
       radio.addEventListener('click', function() {
         container.querySelectorAll('.lta-radio').forEach(function(r) { r.classList.remove('selected'); });
         radio.classList.add('selected');
-        // PHI conditional
-        if (container.id === 'fPHI') {
-          var hasCover = ['hospital_extras','hospital_only'].indexOf(radio.dataset.value) !== -1;
-          document.getElementById('fPHIDetailsWrap').classList.toggle('visible', hasCover);
-        }
       });
     });
   });
 
-  // Dependants conditional
+  // PHI conditional: Show deep dive Section 6 detail fields based on Section 3 PHI answer
+  // (Replaces the old inline conditional that was in Section 6 HTML)
+  var phiContainer = document.getElementById('fPHI');
+  if (phiContainer) {
+    phiContainer.querySelectorAll('.lta-radio').forEach(function(radio) {
+      radio.addEventListener('click', function() {
+        var hasHospitalCover = ['hospital_extras', 'hospital_only'].indexOf(radio.dataset.value) !== -1;
+        // Update deep dive Section 6 detail visibility (will take effect when Section 6 shown)
+        var detailWrap = document.getElementById('fPHIDetailsDeep');
+        var noDetailMsg = document.getElementById('fPHINoDetailMsg');
+        if (detailWrap) detailWrap.style.display = hasHospitalCover ? '' : 'none';
+        if (noDetailMsg) noDetailMsg.style.display = hasHospitalCover ? 'none' : '';
+      });
+    });
+  }
+
+  // Dependants conditional — show ages AND existing benefits
   document.getElementById('fDependants').addEventListener('change', function() {
-    document.getElementById('fDependantAgesWrap').classList.toggle('visible', parseInt(this.value) > 0);
+    var hasDependants = parseInt(this.value) > 0;
+    document.getElementById('fDependantAgesWrap').classList.toggle('visible', hasDependants);
+    document.getElementById('fExistingBenefitsWrap').classList.toggle('visible', hasDependants);
   });
 
   // Childcare conditional
@@ -119,6 +140,17 @@
     document.querySelectorAll('.lta-section').forEach(function(s) { s.classList.remove('visible'); });
     var target = document.querySelector('.lta-section[data-section="' + num + '"]');
     if (target) target.classList.add('visible');
+
+    // v3.0.0: When entering Section 6 deep dive, sync PHI detail visibility
+    if (num === 6) {
+      var phiVal = getRadioValue('fPHI');
+      var hasHospitalCover = ['hospital_extras', 'hospital_only'].indexOf(phiVal) !== -1;
+      var detailWrap = document.getElementById('fPHIDetailsDeep');
+      var noDetailMsg = document.getElementById('fPHINoDetailMsg');
+      if (detailWrap) detailWrap.style.display = hasHospitalCover ? '' : 'none';
+      if (noDetailMsg) noDetailMsg.style.display = hasHospitalCover ? 'none' : '';
+    }
+
     updateProgress(num);
     window.scrollTo({ top: document.getElementById('ltaRoot').offsetTop - 20, behavior: 'smooth' });
   }
@@ -279,52 +311,66 @@
     var submitErr = document.getElementById('ltaSubmitError');
     if (submitErr) submitErr.classList.remove('show');
 
-    // Build payload matching trigger.v1.family_tax_form
+    // Build payload matching trigger.v1.family_tax_form v3.0.0
     var payload = {
-      // Section 1
+      // Section 1: Household Basics
       state: document.getElementById('fState').value,
       relationship_status: document.getElementById('fRelationship').value,
       num_dependants: document.getElementById('fDependants').value,
       dependant_ages: getChipValues('fDependantAges').join(','),
       adult_ages: getChipValues('fAdultAges').join(','),
-      // Section 2
+      existing_benefits: getChipValues('fExistingBenefits').join(','),  // NEW v3.0.0
+
+      // Section 2: Income Profile
       household_income_range: getRadioValue('fIncomeRange'),
       income_split: getRadioValue('fIncomeSplit'),
       income_types: getChipValues('fIncomeTypes').join(','),
       salary_sacrifice: getRadioValue('fSalarySac'),
-      // Section 3
+      work_from_home: getRadioValue('fWFH'),  // PROMOTED v3.0.0 — always sent
+
+      // Section 3: Property & Assets
       home_status: getRadioValue('fHomeStatus'),
       investment_property: getRadioValue('fInvestProp'),
       shares_or_funds: getRadioValue('fShares'),
       crypto: getRadioValue('fCrypto'),
+      private_health: getRadioValue('fPHI'),  // PROMOTED v3.0.0 — always sent
+
       // Contact
       first_name: document.getElementById('fFirstName').value.trim(),
       email: document.getElementById('fEmail').value.trim(),
       phone: document.getElementById('fPhone').value.trim(),
       consent_marketing: document.getElementById('fConsentMarketing').checked ? 'true' : 'false',
       consent_disclaimer: 'true',
+
       // Meta
       page_url: window.location.href
     };
 
-    // Deep dive fields
+    // Deep dive fields (Sections 4-8) — only PHI detail + non-promoted fields
     if (isDeepDive) {
+      // Section 4: Super
       payload.super_balance_range = document.getElementById('fSuperBalance').value;
       payload.voluntary_contributions = getRadioValue('fVoluntaryContrib');
       payload.super_fund_type = getChipValues('fSuperFundType').join(',');
       payload.spouse_super_low = getRadioValue('fSpouseSuper');
-      payload.work_from_home = document.getElementById('fWFH').value;
+
+      // Section 5: Deductions (WFH removed — now in base payload)
       payload.motor_vehicle_work = document.getElementById('fVehicle').value;
       payload.deduction_flags = getChipValues('fDeductions').join(',');
       payload.donations = document.getElementById('fDonations').value;
-      payload.private_health = getRadioValue('fPHI');
+
+      // Section 6: PHI details (base PHI answer already in base payload)
       var phiLevel = document.getElementById('fPHILevel');
       payload.phi_cover_level = phiLevel ? phiLevel.value : '';
       payload.phi_all_covered = getRadioValue('fPHIAll');
+
+      // Section 7: Children
       payload.childcare_type = getChipValues('fChildcareType').join(',');
       var childcareDays = document.getElementById('fChildcareDays');
       payload.childcare_days = childcareDays ? childcareDays.value : '';
       payload.child_disability = getRadioValue('fChildDisability');
+
+      // Section 8: Life Events
       payload.life_events = getChipValues('fLifeEvents').join(',');
     }
 
@@ -368,4 +414,10 @@
   // INIT
   // ============================================================
   updateProgress(1);
+
+  // v3.0.0: Set initial state for PHI detail fields in deep dive Section 6
+  var detailWrap = document.getElementById('fPHIDetailsDeep');
+  var noDetailMsg = document.getElementById('fPHINoDetailMsg');
+  if (detailWrap) detailWrap.style.display = 'none';
+  if (noDetailMsg) noDetailMsg.style.display = '';
 })();
