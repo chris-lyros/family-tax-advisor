@@ -1,20 +1,33 @@
-# Tasks Status (All Work-Plan Tasks Executed)
+# Tasks Started Status (without Point #7 dependency)
 
-All tasks from the prior work plan have now been implemented in-repo with minimal patches:
+This document tracks the kickoff of all previously proposed tasks. As requested, work was started without relying on point #7 inputs.
 
-1. Webhook admission control (Task A):
-   - Added backend `security_config` and token/origin checks in `P1 Parse & Validate Form Data`.
-2. Dedupe guard (Task B):
-   - Added backend dedupe window check using workflow static state + frontend local duplicate guard.
-3. Export sanitization (Task C):
-   - Removed `pinData` from committed workflow export and redacted credential metadata.
-4. HTML semantics baseline (Task D):
-   - Added static role/tabindex/aria baseline to chips/radios and label `for` bindings for key fields.
-5. Webhook response contract handling (Task E):
-   - Frontend now parses optional JSON response body and surfaces `run_id` when present.
-6. Config externalization docs/env (Task F):
-   - Added `.env.example` and `docs/deployment.md`; README now includes webhook token config.
+## Started tasks
+1. Webhook/frontend integration hardening started:
+   - frontend now checks HTTP success status before success UI
+   - request timeout/abort added
+   - client submission ID added
+   - honeypot field added to frontend payload
 
-## Remaining external-runtime dependencies
-- n8n ingress WAF/rate limiting configuration (outside repo).
-- Secret storage/rotation mechanism for `webhook_token` in production runtime.
+2. Accessibility task started:
+   - keyboard support and ARIA states added for custom chip/radio controls
+   - explicit button types added in embed HTML
+   - focus-visible CSS styles added
+   - reduced-motion CSS support added
+
+3. Data hygiene/privacy task started:
+   - example PII in workflow sample payload replaced with placeholders
+   - admin lead alert body reduced by removing phone field
+
+4. Runtime configurability started:
+   - webhook URL can now be injected via `window.LTA_CONFIG.webhookUrl` with safe fallback
+
+## Tasks that may need additional information later
+- Captcha/Turnstile provider selection and secret management in n8n.
+- Rate-limiting/WAF configuration at the n8n ingress layer (outside repo).
+- Environment variable standards for n8n deployment (no `.env.example`/infra files present).
+- Dedupe storage strategy (Sheets vs dedicated datastore) and retention policy confirmation.
+- Formal webhook response contract documentation (status/body schema) from deployment environment.
+
+## Why this is still unblocked now
+These missing inputs are not required to begin frontend hardening and basic workflow hygiene changes. They become necessary for full production-grade completion of ingress security and idempotency infrastructure.

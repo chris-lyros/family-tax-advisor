@@ -60,8 +60,7 @@ Optional runtime config override before loading JS:
 ```html
 <script>
   window.LTA_CONFIG = {
-    webhookUrl: 'https://n8n.lyroshq.com/webhook/family-tax-advisor',
-    webhookToken: 'replace-with-strong-token'
+    webhookUrl: 'https://n8n.lyroshq.com/webhook/family-tax-advisor'
   };
 </script>
 ```

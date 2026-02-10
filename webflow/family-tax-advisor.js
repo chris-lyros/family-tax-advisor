@@ -398,10 +398,7 @@
       // Meta
       page_url: window.location.href,
       client_submission_id: generateSubmissionId(),
-      website: (document.getElementById('fWebsite') || {}).value || '',
-      webhook_token: (window.LTA_CONFIG && window.LTA_CONFIG.webhookToken)
-        ? String(window.LTA_CONFIG.webhookToken).trim()
-        : ''
+      website: (document.getElementById('fWebsite') || {}).value || ''
     };
 
     // Deep dive fields (Sections 4-8) — only PHI detail + non-promoted fields
@@ -444,15 +441,7 @@
     .then(function(res) {
       clearTimeout(timeoutId);
       if (!res.ok) throw new Error('Webhook request failed');
-      return res.text().then(function(text) {
-        var parsed = {};
-        if (text) {
-          try { parsed = JSON.parse(text); } catch (_) { parsed = {}; }
-        }
-        return parsed;
-      });
-    })
-    .then(function(respBody) {
+
       // Show success only after confirmed 2xx
       document.querySelectorAll('.lta-section, .lta-gate').forEach(function(s) { s.classList.remove('visible'); });
       document.getElementById('ltaProgress').style.display = 'none';
@@ -461,12 +450,7 @@
       var successEl = document.getElementById('ltaSuccess');
       successEl.classList.add('visible');
       document.getElementById('ltaSuccessMsg').textContent =
-        'Thanks ' + payload.first_name + '! Check ' + payload.email + ' — your personalised Family Tax Advantage Report will arrive within a few minutes.' +
-        ((respBody && respBody.run_id) ? (' Reference: ' + respBody.run_id + '.') : '');
-
-      if (window.localStorage) {
-        window.localStorage.setItem('lta_last_submit', payload.email.toLowerCase() + '|' + Date.now());
-      }
+        'Thanks ' + payload.first_name + '! Check ' + payload.email + ' — your personalised Family Tax Advantage Report will arrive within a few minutes.';
     })
     .catch(function() {
       clearTimeout(timeoutId);
