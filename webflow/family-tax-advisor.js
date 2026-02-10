@@ -341,6 +341,21 @@
 
     // Debounce: prevent double-submit
     if (isSubmitting) return;
+
+    var now = Date.now();
+    var dedupeWindowMs = 10 * 60 * 1000;
+    var dedupeRaw = window.localStorage ? window.localStorage.getItem('lta_last_submit') : null;
+    if (dedupeRaw) {
+      var dedupeParts = dedupeRaw.split('|');
+      if (dedupeParts.length === 2 && (now - parseInt(dedupeParts[1], 10)) < dedupeWindowMs) {
+        var currentEmail = document.getElementById('fEmail').value.trim().toLowerCase();
+        if (currentEmail && dedupeParts[0] === currentEmail) {
+          if (submitErr) submitErr.classList.add('show');
+          return;
+        }
+      }
+    }
+
     isSubmitting = true;
 
     var btn = document.getElementById('ltaSubmitBtn');

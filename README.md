@@ -91,3 +91,6 @@ This tool provides **general information only** and does not constitute personal
 ## Dependencies
 
 None. The form is self-contained vanilla HTML/CSS/JS. The only external resources are Google Fonts (DM Sans, JetBrains Mono).
+
+
+See `docs/deployment.md` and `.env.example` for production configuration guidance.
