@@ -1,11 +1,11 @@
 /**
- * LYROS FAMILY TAX ADVISOR â€” Form Styles
+ * LYROS FAMILY TAX ADVISOR — Form Styles
  * ========================================
  * Repo:    github.com/chris-lyros/family-tax-advisor
  * Version: 3.0.0
  * Updated: 2026-02-09
  *
- * Loaded via jsDelivr CDN in Webflow Page Settings â†’ Head Code.
+ * Loaded via jsDelivr CDN in Webflow Page Settings → Head Code.
  * HTML embed on the page provides the markup; JS loaded in Footer Code.
  */
 
@@ -58,7 +58,7 @@
   border-radius: 20px;
   margin-bottom: 20px;
 }
-.lta-badge::before { content: "â—"; font-size: 8px; animation: lta-pulse 2s infinite; }
+.lta-badge::before { content: "●"; font-size: 8px; animation: lta-pulse 2s infinite; }
 @keyframes lta-pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
 
 .lta-header h1 {
@@ -309,7 +309,7 @@
   border-color: var(--emerald);
 }
 .lta-check-row input[type="checkbox"]:checked::after {
-  content: "âœ“";
+  content: "✓";
   position: absolute;
   color: white;
   font-size: 13px;
@@ -450,3 +450,24 @@
 }
 .lta-submit-error.show { display: block; }
 .lta-submit-error a { color: var(--emerald); text-decoration: underline; }
+
+
+/* ========== KEYBOARD FOCUS ========== */
+.lta-chip:focus-visible,
+.lta-radio:focus-visible,
+.lta-btn:focus-visible,
+.lta-input:focus-visible,
+.lta-select:focus-visible {
+  outline: 2px solid var(--emerald);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
+}
+
+/* ========== REDUCED MOTION ========== */
+@media (prefers-reduced-motion: reduce) {
+  .lta-root *, .lta-root *::before, .lta-root *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

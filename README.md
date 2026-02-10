@@ -54,6 +54,19 @@ See the **Webflow Integration Guide** section below.
 <script src="https://cdn.jsdelivr.net/gh/chris-lyros/family-tax-advisor@main/webflow/family-tax-advisor.js"></script>
 ```
 
+
+Optional runtime config override before loading JS:
+
+```html
+<script>
+  window.LTA_CONFIG = {
+    webhookUrl: 'https://n8n.lyroshq.com/webhook/family-tax-advisor',
+    webhookToken: 'replace-with-strong-token'
+  };
+</script>
+```
+
+
 ### 3. Page Body → HTML Embed Element
 
 Paste the contents of `backup/family-tax-advisor-embed.html` into a Webflow HTML Embed element.
@@ -79,3 +92,6 @@ This tool provides **general information only** and does not constitute personal
 ## Dependencies
 
 None. The form is self-contained vanilla HTML/CSS/JS. The only external resources are Google Fonts (DM Sans, JetBrains Mono).
+
+
+See `docs/deployment.md` and `.env.example` for production configuration guidance.

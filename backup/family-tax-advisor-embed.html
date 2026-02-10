@@ -18,6 +18,12 @@
 
 <div class="lta-root" id="ltaRoot">
 
+  <noscript>
+    <div class="lta-submit-error show" style="display:block; margin-bottom:16px;">
+      This form requires JavaScript to run. Please enable JavaScript or email <a href="mailto:chris@lyros.com.au">chris@lyros.com.au</a>.
+    </div>
+  </noscript>
+
   <!-- Header -->
   <div class="lta-header">
     <div class="lta-badge">Free Analysis Tool</div>
@@ -45,7 +51,7 @@
 
     <div class="lta-row">
       <div class="lta-field">
-        <label class="lta-label">State / Territory <span class="req">*</span></label>
+        <label class="lta-label" for="fState">State / Territory <span class="req">*</span></label>
         <select class="lta-select" id="fState" aria-required="true" required>
           <option value="">Select state</option>
           <option value="NSW">NSW</option>
@@ -60,7 +66,7 @@
         <div class="lta-error-msg" id="errState">Please select your state</div>
       </div>
       <div class="lta-field">
-        <label class="lta-label">Relationship Status <span class="req">*</span></label>
+        <label class="lta-label" for="fRelationship">Relationship Status <span class="req">*</span></label>
         <select class="lta-select" id="fRelationship" aria-required="true" required>
           <option value="">Select status</option>
           <option value="single">Single</option>
@@ -74,7 +80,7 @@
 
     <div class="lta-row">
       <div class="lta-field">
-        <label class="lta-label">Number of Dependent Children <span class="req">*</span></label>
+        <label class="lta-label" for="fDependants">Number of Dependent Children <span class="req">*</span></label>
         <select class="lta-select" id="fDependants">
           <option value="0">0</option>
           <option value="1">1</option>
@@ -87,11 +93,11 @@
       <div class="lta-field lta-conditional" id="fDependantAgesWrap">
         <label class="lta-label">Ages of Children</label>
         <div class="lta-chips" id="fDependantAges" data-field="dependant_ages" role="group" aria-label="Ages of children">
-          <div class="lta-chip" data-value="0-1">0–1</div>
-          <div class="lta-chip" data-value="2-4">2–4</div>
-          <div class="lta-chip" data-value="5-12">5–12</div>
-          <div class="lta-chip" data-value="13-15">13–15</div>
-          <div class="lta-chip" data-value="16-18">16–18</div>
+          <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="0-1">0–1</div>
+          <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="2-4">2–4</div>
+          <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="5-12">5–12</div>
+          <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="13-15">13–15</div>
+          <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="16-18">16–18</div>
         </div>
         <div class="lta-hint">Select all that apply</div>
       </div>
@@ -101,12 +107,12 @@
     <div class="lta-field lta-conditional" id="fExistingBenefitsWrap">
       <label class="lta-label">Currently Receiving Any of These?</label>
       <div class="lta-chips" id="fExistingBenefits" data-field="existing_benefits" role="group" aria-label="Benefits currently received">
-        <div class="lta-chip" data-value="ftb_a">Family Tax Benefit A</div>
-        <div class="lta-chip" data-value="ftb_b">Family Tax Benefit B</div>
-        <div class="lta-chip" data-value="ccs">Child Care Subsidy</div>
-        <div class="lta-chip" data-value="carer">Carer Allowance / Payment</div>
-        <div class="lta-chip" data-value="not_sure">Not Sure</div>
-        <div class="lta-chip" data-value="none">None</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="ftb_a">Family Tax Benefit A</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="ftb_b">Family Tax Benefit B</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="ccs">Child Care Subsidy</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="carer">Carer Allowance / Payment</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="not_sure">Not Sure</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="none">None</div>
       </div>
       <div class="lta-hint">Select all that apply — helps us tailor your report</div>
     </div>
@@ -114,20 +120,25 @@
     <div class="lta-field">
       <label class="lta-label">Age Range of Adults <span class="req">*</span></label>
       <div class="lta-chips" id="fAdultAges" data-field="adult_ages" role="group" aria-label="Age range of adults">
-        <div class="lta-chip" data-value="18-29">18–29</div>
-        <div class="lta-chip" data-value="30-54">30–54</div>
-        <div class="lta-chip" data-value="55-59">55–59</div>
-        <div class="lta-chip" data-value="60-64">60–64</div>
-        <div class="lta-chip" data-value="65-66">65–66</div>
-        <div class="lta-chip" data-value="67-74">67–74</div>
-        <div class="lta-chip" data-value="75+">75+</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="18-29">18–29</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="30-54">30–54</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="55-59">55–59</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="60-64">60–64</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="65-66">65–66</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="67-74">67–74</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="75+">75+</div>
       </div>
       <div class="lta-hint">Select all adults in your household</div>
       <div class="lta-error-msg" id="errAdultAges">Select at least one age range</div>
     </div>
 
+    <div class="lta-field" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
+      <label class="lta-label" for="fWebsite">Website</label>
+      <input class="lta-input" type="text" id="fWebsite" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(1)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(1)">Continue</button>
     </div>
   </div>
 
@@ -144,13 +155,13 @@
     <div class="lta-field">
       <label class="lta-label">Combined Household Gross Income <span class="req">*</span></label>
       <div class="lta-radios" id="fIncomeRange" data-field="household_income_range" role="radiogroup" aria-label="Combined household gross income">
-        <div class="lta-radio" data-value="under_45k">Under $45k</div>
-        <div class="lta-radio" data-value="45k_65k">$45k – $65k</div>
-        <div class="lta-radio" data-value="65k_90k">$65k – $90k</div>
-        <div class="lta-radio" data-value="90k_120k">$90k – $120k</div>
-        <div class="lta-radio" data-value="120k_180k">$120k – $180k</div>
-        <div class="lta-radio" data-value="180k_250k">$180k – $250k</div>
-        <div class="lta-radio" data-value="250k_plus">$250k+</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="under_45k">Under $45k</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="45k_65k">$45k – $65k</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="65k_90k">$65k – $90k</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="90k_120k">$90k – $120k</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="120k_180k">$120k – $180k</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="180k_250k">$180k – $250k</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="250k_plus">$250k+</div>
       </div>
       <div class="lta-error-msg" id="errIncome">Please select an income range</div>
     </div>
@@ -158,9 +169,9 @@
     <div class="lta-field">
       <label class="lta-label">How Is Income Split? <span class="req">*</span></label>
       <div class="lta-radios" id="fIncomeSplit" data-field="income_split" role="radiogroup" aria-label="Income split">
-        <div class="lta-radio" data-value="roughly_equal">Roughly Equal</div>
-        <div class="lta-radio" data-value="one_earner_dominant">One Earner Dominant (70/30+)</div>
-        <div class="lta-radio" data-value="single_income">Single Income</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="roughly_equal">Roughly Equal</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="one_earner_dominant">One Earner Dominant (70/30+)</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="single_income">Single Income</div>
       </div>
       <div class="lta-error-msg" id="errSplit">Please select how income is split</div>
     </div>
@@ -168,13 +179,13 @@
     <div class="lta-field">
       <label class="lta-label">Types of Income Received <span class="req">*</span></label>
       <div class="lta-chips" id="fIncomeTypes" data-field="income_types" role="group" aria-label="Types of income received">
-        <div class="lta-chip" data-value="salary">Salary / Wages</div>
-        <div class="lta-chip" data-value="sole_trader">Sole Trader / ABN</div>
-        <div class="lta-chip" data-value="rental">Rental Property</div>
-        <div class="lta-chip" data-value="dividends">Dividends / Shares</div>
-        <div class="lta-chip" data-value="capital_gains">Capital Gains</div>
-        <div class="lta-chip" data-value="centrelink">Centrelink Payments</div>
-        <div class="lta-chip" data-value="foreign">Foreign Income</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="salary">Salary / Wages</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="sole_trader">Sole Trader / ABN</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="rental">Rental Property</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="dividends">Dividends / Shares</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="capital_gains">Capital Gains</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="centrelink">Centrelink Payments</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="foreign">Foreign Income</div>
       </div>
       <div class="lta-hint">Select all that apply</div>
       <div class="lta-error-msg" id="errIncomeTypes">Select at least one income type</div>
@@ -183,9 +194,9 @@
     <div class="lta-field">
       <label class="lta-label">Does Anyone Salary Sacrifice to Super?</label>
       <div class="lta-radios" id="fSalarySac" data-field="salary_sacrifice" role="radiogroup" aria-label="Salary sacrifice to super">
-        <div class="lta-radio" data-value="yes">Yes</div>
-        <div class="lta-radio" data-value="no">No</div>
-        <div class="lta-radio" data-value="not_sure">Not Sure</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="yes">Yes</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="no">No</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="not_sure">Not Sure</div>
       </div>
     </div>
 
@@ -193,16 +204,16 @@
     <div class="lta-field">
       <label class="lta-label">Work From Home?</label>
       <div class="lta-radios" id="fWFH" data-field="work_from_home" role="radiogroup" aria-label="Work from home frequency">
-        <div class="lta-radio" data-value="no">No</div>
-        <div class="lta-radio" data-value="1_2_days">1–2 Days / Week</div>
-        <div class="lta-radio" data-value="3_4_days">3–4 Days / Week</div>
-        <div class="lta-radio" data-value="full_time">Full-time WFH</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="no">No</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="1_2_days">1–2 Days / Week</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="3_4_days">3–4 Days / Week</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="full_time">Full-time WFH</div>
       </div>
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(2)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(2)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(2)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(2)">Continue</button>
     </div>
   </div>
 
@@ -219,10 +230,10 @@
     <div class="lta-field">
       <label class="lta-label">Housing Situation <span class="req">*</span></label>
       <div class="lta-radios" id="fHomeStatus" data-field="home_status" role="radiogroup" aria-label="Housing situation">
-        <div class="lta-radio" data-value="own_mortgage">Own (Mortgage)</div>
-        <div class="lta-radio" data-value="own_outright">Own (No Mortgage)</div>
-        <div class="lta-radio" data-value="renting">Renting</div>
-        <div class="lta-radio" data-value="living_with_family">Living with Family</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="own_mortgage">Own (Mortgage)</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="own_outright">Own (No Mortgage)</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="renting">Renting</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="living_with_family">Living with Family</div>
       </div>
       <div class="lta-error-msg" id="errHome">Please select your housing situation</div>
     </div>
@@ -230,9 +241,9 @@
     <div class="lta-field">
       <label class="lta-label">Investment Property?</label>
       <div class="lta-radios" id="fInvestProp" data-field="investment_property" role="radiogroup" aria-label="Investment property">
-        <div class="lta-radio" data-value="no">No</div>
-        <div class="lta-radio" data-value="yes_1">Yes – 1 Property</div>
-        <div class="lta-radio" data-value="yes_2_plus">Yes – 2+ Properties</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="no">No</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="yes_1">Yes – 1 Property</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="yes_2_plus">Yes – 2+ Properties</div>
       </div>
     </div>
 
@@ -240,10 +251,10 @@
       <div class="lta-field">
         <label class="lta-label">Shares or Managed Funds?</label>
         <div class="lta-radios" id="fShares" data-field="shares_or_funds" role="radiogroup" aria-label="Shares or managed funds">
-          <div class="lta-radio" data-value="no">No</div>
-          <div class="lta-radio" data-value="yes_under_50k">Under $50k</div>
-          <div class="lta-radio" data-value="yes_50k_250k">$50k – $250k</div>
-          <div class="lta-radio" data-value="yes_250k_plus">$250k+</div>
+          <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="no">No</div>
+          <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="yes_under_50k">Under $50k</div>
+          <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="yes_50k_250k">$50k – $250k</div>
+          <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="yes_250k_plus">$250k+</div>
         </div>
       </div>
     </div>
@@ -251,9 +262,9 @@
     <div class="lta-field">
       <label class="lta-label">Cryptocurrency Holdings?</label>
       <div class="lta-radios" id="fCrypto" data-field="crypto" role="radiogroup" aria-label="Cryptocurrency holdings">
-        <div class="lta-radio" data-value="no">No</div>
-        <div class="lta-radio" data-value="yes_under_10k">Under $10k</div>
-        <div class="lta-radio" data-value="yes_10k_plus">$10k+</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="no">No</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="yes_under_10k">Under $10k</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="yes_10k_plus">$10k+</div>
       </div>
     </div>
 
@@ -261,16 +272,16 @@
     <div class="lta-field">
       <label class="lta-label">Private Health Insurance?</label>
       <div class="lta-radios" id="fPHI" data-field="private_health" role="radiogroup" aria-label="Private health insurance">
-        <div class="lta-radio" data-value="hospital_extras">Hospital + Extras</div>
-        <div class="lta-radio" data-value="hospital_only">Hospital Only</div>
-        <div class="lta-radio" data-value="extras_only">Extras Only</div>
-        <div class="lta-radio" data-value="no">No</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="hospital_extras">Hospital + Extras</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="hospital_only">Hospital Only</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="extras_only">Extras Only</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="no">No</div>
       </div>
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(3)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(3)">Continue to Contact Details</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(3)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(3)">Continue to Contact Details</button>
     </div>
   </div>
 
@@ -279,8 +290,8 @@
     <h3>Want a Deeper Analysis?</h3>
     <p>Answer a few more questions about super, deductions, childcare, and recent life events for a more detailed report.</p>
     <div class="lta-gate-btns">
-      <button class="lta-btn lta-btn-secondary" onclick="ltaSkipDeep()">Skip — Quick Snapshot is Fine</button>
-      <button class="lta-btn lta-btn-primary" style="width:auto;" onclick="ltaStartDeep()">Yes, Go Deeper</button>
+      <button type="button" class="lta-btn lta-btn-secondary" onclick="ltaSkipDeep()">Skip — Quick Snapshot is Fine</button>
+      <button type="button" class="lta-btn lta-btn-primary" style="width:auto;" onclick="ltaStartDeep()">Yes, Go Deeper</button>
     </div>
   </div>
 
@@ -310,22 +321,22 @@
     <div class="lta-field">
       <label class="lta-label">Making Voluntary Super Contributions?</label>
       <div class="lta-radios" id="fVoluntaryContrib" data-field="voluntary_contributions" role="radiogroup" aria-label="Voluntary super contributions">
-        <div class="lta-radio" data-value="salary_sacrifice">Salary Sacrifice</div>
-        <div class="lta-radio" data-value="personal_deductible">Personal Deductible</div>
-        <div class="lta-radio" data-value="after_tax">After-tax</div>
-        <div class="lta-radio" data-value="no">No</div>
-        <div class="lta-radio" data-value="not_sure">Not Sure</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="salary_sacrifice">Salary Sacrifice</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="personal_deductible">Personal Deductible</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="after_tax">After-tax</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="no">No</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="not_sure">Not Sure</div>
       </div>
     </div>
 
     <div class="lta-field">
       <label class="lta-label">Super Fund Type</label>
       <div class="lta-chips" id="fSuperFundType" data-field="super_fund_type" role="group" aria-label="Super fund type">
-        <div class="lta-chip" data-value="industry">Industry Fund</div>
-        <div class="lta-chip" data-value="retail">Retail Fund</div>
-        <div class="lta-chip" data-value="smsf">SMSF</div>
-        <div class="lta-chip" data-value="defined_benefit">Defined Benefit</div>
-        <div class="lta-chip" data-value="not_sure">Not Sure</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="industry">Industry Fund</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="retail">Retail Fund</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="smsf">SMSF</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="defined_benefit">Defined Benefit</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="not_sure">Not Sure</div>
       </div>
       <div class="lta-hint">Select all that apply across your household</div>
     </div>
@@ -333,16 +344,16 @@
     <div class="lta-field">
       <label class="lta-label">Does Either Partner Have Super Under $40k AND Income Under $37k?</label>
       <div class="lta-radios" id="fSpouseSuper" data-field="spouse_super_low" role="radiogroup" aria-label="Spouse super eligibility">
-        <div class="lta-radio" data-value="yes">Yes</div>
-        <div class="lta-radio" data-value="no">No</div>
-        <div class="lta-radio" data-value="not_sure">Not Sure</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="yes">Yes</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="no">No</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="not_sure">Not Sure</div>
       </div>
       <div class="lta-hint">This unlocks the spouse super contribution tax offset (up to $540)</div>
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(4)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(4)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(4)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(4)">Continue</button>
     </div>
   </div>
 
@@ -370,10 +381,10 @@
     <div class="lta-field">
       <label class="lta-label">Which of These Apply?</label>
       <div class="lta-chips" id="fDeductions" data-field="deduction_flags" role="group" aria-label="Deduction categories">
-        <div class="lta-chip" data-value="uniform">Uniform / Protective Clothing</div>
-        <div class="lta-chip" data-value="self_education">Professional Development / Study</div>
-        <div class="lta-chip" data-value="union_fees">Union / Professional Fees</div>
-        <div class="lta-chip" data-value="income_protection">Income Protection Insurance</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="uniform">Uniform / Protective Clothing</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="self_education">Professional Development / Study</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="union_fees">Union / Professional Fees</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="income_protection">Income Protection Insurance</div>
       </div>
     </div>
 
@@ -390,8 +401,8 @@
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(5)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(5)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(5)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(5)">Continue</button>
     </div>
   </div>
 
@@ -424,8 +435,8 @@
         <div class="lta-field">
           <label class="lta-label">All Family Members Covered?</label>
           <div class="lta-radios" id="fPHIAll" data-field="phi_all_covered" role="radiogroup" aria-label="All family covered">
-            <div class="lta-radio" data-value="yes">Yes</div>
-            <div class="lta-radio" data-value="no">No</div>
+            <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="yes">Yes</div>
+            <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="no">No</div>
           </div>
         </div>
       </div>
@@ -437,8 +448,8 @@
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(6)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(6)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(6)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(6)">Continue</button>
     </div>
   </div>
 
@@ -455,11 +466,11 @@
     <div class="lta-field">
       <label class="lta-label">Childcare Used?</label>
       <div class="lta-chips" id="fChildcareType" data-field="childcare_type" role="group" aria-label="Childcare type">
-        <div class="lta-chip" data-value="long_day_care">Long Day Care</div>
-        <div class="lta-chip" data-value="family_day_care">Family Day Care</div>
-        <div class="lta-chip" data-value="oshc">Outside School Hours</div>
-        <div class="lta-chip" data-value="in_home">In-home Care</div>
-        <div class="lta-chip" data-value="none">None</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="long_day_care">Long Day Care</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="family_day_care">Family Day Care</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="oshc">Outside School Hours</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="in_home">In-home Care</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="none">None</div>
       </div>
     </div>
 
@@ -480,14 +491,14 @@
     <div class="lta-field">
       <label class="lta-label">Child with a Disability or Additional Needs?</label>
       <div class="lta-radios" id="fChildDisability" data-field="child_disability" role="radiogroup" aria-label="Child disability or additional needs">
-        <div class="lta-radio" data-value="yes">Yes</div>
-        <div class="lta-radio" data-value="no">No</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="yes">Yes</div>
+        <div class="lta-radio" role="radio" tabindex="0" aria-checked="false" data-value="no">No</div>
       </div>
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(7)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(7)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(7)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(7)">Continue</button>
     </div>
   </div>
 
@@ -503,22 +514,22 @@
 
     <div class="lta-field">
       <div class="lta-chips" id="fLifeEvents" data-field="life_events" role="group" aria-label="Life events in last 12 months">
-        <div class="lta-chip" data-value="had_baby">Had a Baby</div>
-        <div class="lta-chip" data-value="bought_property">Bought Property</div>
-        <div class="lta-chip" data-value="sold_property">Sold Property</div>
-        <div class="lta-chip" data-value="changed_jobs">Changed Jobs</div>
-        <div class="lta-chip" data-value="started_business">Started a Business</div>
-        <div class="lta-chip" data-value="closed_business">Closed a Business</div>
-        <div class="lta-chip" data-value="separated">Separated / Divorced</div>
-        <div class="lta-chip" data-value="inheritance">Received Inheritance</div>
-        <div class="lta-chip" data-value="moved_interstate">Moved Interstate</div>
-        <div class="lta-chip" data-value="none">None of the Above</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="had_baby">Had a Baby</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="bought_property">Bought Property</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="sold_property">Sold Property</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="changed_jobs">Changed Jobs</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="started_business">Started a Business</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="closed_business">Closed a Business</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="separated">Separated / Divorced</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="inheritance">Received Inheritance</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="moved_interstate">Moved Interstate</div>
+        <div class="lta-chip" role="checkbox" tabindex="0" aria-checked="false" data-value="none">None of the Above</div>
       </div>
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(8)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(8)">Continue to Contact Details</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(8)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(8)">Continue to Contact Details</button>
     </div>
   </div>
 
@@ -534,19 +545,19 @@
 
     <div class="lta-row">
       <div class="lta-field">
-        <label class="lta-label">First Name <span class="req">*</span></label>
+        <label class="lta-label" for="fFirstName">First Name <span class="req">*</span></label>
         <input class="lta-input" type="text" id="fFirstName" placeholder="Jane" required aria-required="true" autocomplete="given-name" />
         <div class="lta-error-msg" id="errFirstName">Please enter your first name</div>
       </div>
       <div class="lta-field">
-        <label class="lta-label">Email Address <span class="req">*</span></label>
+        <label class="lta-label" for="fEmail">Email Address <span class="req">*</span></label>
         <input class="lta-input" type="email" id="fEmail" placeholder="jane@example.com" required aria-required="true" autocomplete="email" />
         <div class="lta-error-msg" id="errEmail">Please enter a valid email address</div>
       </div>
     </div>
 
     <div class="lta-field">
-      <label class="lta-label">Phone (Optional)</label>
+      <label class="lta-label" for="fPhone">Phone (Optional)</label>
       <input class="lta-input" type="tel" id="fPhone" placeholder="0412 345 678" autocomplete="tel" inputmode="tel" />
     </div>
 
@@ -566,8 +577,8 @@
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBackContact()">← Back</button>
-      <button class="lta-btn lta-btn-primary" id="ltaSubmitBtn" onclick="ltaSubmit()">
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBackContact()">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" id="ltaSubmitBtn" onclick="ltaSubmit()">
         Get My Free Tax Report
       </button>
     </div>
