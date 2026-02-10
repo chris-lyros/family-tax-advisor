@@ -54,6 +54,18 @@ See the **Webflow Integration Guide** section below.
 <script src="https://cdn.jsdelivr.net/gh/chris-lyros/family-tax-advisor@main/webflow/family-tax-advisor.js"></script>
 ```
 
+
+Optional runtime config override before loading JS:
+
+```html
+<script>
+  window.LTA_CONFIG = {
+    webhookUrl: 'https://n8n.lyroshq.com/webhook/family-tax-advisor'
+  };
+</script>
+```
+
+
 ### 3. Page Body → HTML Embed Element
 
 Paste the contents of `backup/family-tax-advisor-embed.html` into a Webflow HTML Embed element.

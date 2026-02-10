@@ -1252,7 +1252,7 @@
       "parameters": {
         "toRecipients": "={{ $('C1 Config').item.json.email_config.admin_email }}",
         "subject": "=🔔 New Family Tax Lead:{{ $('P5 build html email').item.json.original_contact.first_name }}  ({{ $('P5 build html email').item.json.meta.form_type }}) — {{ $('P5 build html email').item.json.report_meta.estimated_total_savings }}",
-        "bodyContent": "=<b>New Lead</b><br><br>\n<b>Name:</b> {{ $('P5 build html email').item.json.original_contact.first_name }}<br>\n<b>Email:</b> {{ $('P5 build html email').item.json.original_contact.email }}<br>\n<b>Phone:</b> {{ $('P5 build html email').item.json.original_contact.phone || 'Not provided' }}<br>\n<b>State:</b> {{ $('P5 build html email').item.json.trigger.v1.household.state }}<br>\n<b>Income:</b> {{ $('P5 build html email').item.json.trigger.v1.income.household_income_range }}<br>\n<b>Form:</b> {{ $('P5 build html email').item.json.meta.form_type }}<br><br>\n<b>Top Opportunity:</b> {{ $('P5 build html email').item.json.report_meta.top_opportunity }}<br>\n<b>Est. Savings:</b> ${{ $('P5 build html email').item.json.report_meta.estimated_total_savings }}<br>\n<b>MLS At Risk:</b> {{ $('P5 build html email').item.json.report_meta.mls_at_risk }}<br>\n<b>Marketing Consent:</b> {{ $('P5 build html email').item.json.original_contact.consent_marketing }}<br><br>\n<b>L1 tokens:</b> {{ $('P5 build html email').item.json.token_usage.l1.total_tokens }}<br>\n<b>L2 tokens:</b> {{ $('P5 build html email').item.json.token_usage.l2.input_tokens + $('P5 build html email').item.json.token_usage.l2.output_tokens }}<br>\n<b>L3 tokens:</b> {{ $('P5 build html email').item.json.token_usage.l3.total_tokens }}",
+        "bodyContent": "=<b>New Lead</b><br><br>\n<b>Name:</b> {{ $('P5 build html email').item.json.original_contact.first_name }}<br>\n<b>Email:</b> {{ $('P5 build html email').item.json.original_contact.email }}<br>\n<b>State:</b> {{ $('P5 build html email').item.json.trigger.v1.household.state }}<br>\n<b>Income:</b> {{ $('P5 build html email').item.json.trigger.v1.income.household_income_range }}<br>\n<b>Form:</b> {{ $('P5 build html email').item.json.meta.form_type }}<br><br>\n<b>Top Opportunity:</b> {{ $('P5 build html email').item.json.report_meta.top_opportunity }}<br>\n<b>Est. Savings:</b> ${{ $('P5 build html email').item.json.report_meta.estimated_total_savings }}<br>\n<b>MLS At Risk:</b> {{ $('P5 build html email').item.json.report_meta.mls_at_risk }}<br>\n<b>Marketing Consent:</b> {{ $('P5 build html email').item.json.original_contact.consent_marketing }}<br><br>\n<b>L1 tokens:</b> {{ $('P5 build html email').item.json.token_usage.l1.total_tokens }}<br>\n<b>L2 tokens:</b> {{ $('P5 build html email').item.json.token_usage.l2.input_tokens + $('P5 build html email').item.json.token_usage.l2.output_tokens }}<br>\n<b>L3 tokens:</b> {{ $('P5 build html email').item.json.token_usage.l3.total_tokens }}",
         "additionalFields": {
           "from": "automations@lyros.com.au",
           "bodyContentType": "html"
@@ -1330,9 +1330,9 @@
             "shares_or_funds": "yes_50k_250k",
             "crypto": "no",
             "private_health": "hospital_extras",
-            "first_name": "Chris",
-            "email": "chriscathie1@hotmail.com",
-            "phone": "0466562403",
+            "first_name": "Example",
+            "email": "example@lyros.com.au",
+            "phone": "0400000000",
             "consent_marketing": "true",
             "consent_disclaimer": "true",
             "page_url": "https://www.lyros.com.au/family-tax",
