@@ -26,7 +26,9 @@
   // ============================================================
   // CONFIGURATION
   // ============================================================
-  const WEBHOOK_URL = 'https://n8n.lyroshq.com/webhook/family-tax-advisor';
+  const WEBHOOK_URL = (window.LTA_CONFIG && window.LTA_CONFIG.webhookUrl)
+    ? window.LTA_CONFIG.webhookUrl
+    : 'https://n8n.lyroshq.com/webhook/family-tax-advisor';
 
   // ============================================================
   // STATE
@@ -36,12 +38,21 @@
   let isSubmitting = false;
   const totalQuickSections = 3;
 
+  function generateSubmissionId() {
+    if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+    return 'sub-' + Date.now() + '-' + Math.random().toString(36).slice(2, 10);
+  }
+
   // ============================================================
   // CHIP & RADIO HANDLERS
   // ============================================================
   document.querySelectorAll('.lta-chips').forEach(function(container) {
     container.querySelectorAll('.lta-chip').forEach(function(chip) {
-      chip.addEventListener('click', function() {
+      chip.setAttribute('role', 'checkbox');
+      chip.setAttribute('tabindex', '0');
+      chip.setAttribute('aria-checked', chip.classList.contains('selected') ? 'true' : 'false');
+
+      function toggleChipSelection() {
         chip.classList.toggle('selected');
         // "None" / "Not Sure" exclusivity
         if (chip.dataset.value === 'none' || chip.dataset.value === 'not_sure') {
@@ -54,15 +65,42 @@
           var notSureChip = container.querySelector('.lta-chip[data-value="not_sure"]');
           if (notSureChip) notSureChip.classList.remove('selected');
         }
+        container.querySelectorAll('.lta-chip').forEach(function(c) {
+          c.setAttribute('aria-checked', c.classList.contains('selected') ? 'true' : 'false');
+        });
+      }
+
+      chip.addEventListener('click', toggleChipSelection);
+      chip.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleChipSelection();
+        }
       });
     });
   });
 
   document.querySelectorAll('.lta-radios').forEach(function(container) {
     container.querySelectorAll('.lta-radio').forEach(function(radio) {
-      radio.addEventListener('click', function() {
-        container.querySelectorAll('.lta-radio').forEach(function(r) { r.classList.remove('selected'); });
+      radio.setAttribute('role', 'radio');
+      radio.setAttribute('tabindex', '0');
+      radio.setAttribute('aria-checked', radio.classList.contains('selected') ? 'true' : 'false');
+
+      function selectRadio() {
+        container.querySelectorAll('.lta-radio').forEach(function(r) {
+          r.classList.remove('selected');
+          r.setAttribute('aria-checked', 'false');
+        });
         radio.classList.add('selected');
+        radio.setAttribute('aria-checked', 'true');
+      }
+
+      radio.addEventListener('click', selectRadio);
+      radio.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          selectRadio();
+        }
       });
     });
   });
@@ -343,7 +381,9 @@
       consent_disclaimer: 'true',
 
       // Meta
-      page_url: window.location.href
+      page_url: window.location.href,
+      client_submission_id: generateSubmissionId(),
+      website: (document.getElementById('fWebsite') || {}).value || ''
     };
 
     // Deep dive fields (Sections 4-8) — only PHI detail + non-promoted fields
@@ -374,13 +414,20 @@
       payload.life_events = getChipValues('fLifeEvents').join(',');
     }
 
+    var controller = new AbortController();
+    var timeoutId = setTimeout(function() { controller.abort(); }, 20000);
+
     fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
+      signal: controller.signal
     })
-    .then(function() {
-      // Show success (webhook responds 200 immediately)
+    .then(function(res) {
+      clearTimeout(timeoutId);
+      if (!res.ok) throw new Error('Webhook request failed');
+
+      // Show success only after confirmed 2xx
       document.querySelectorAll('.lta-section, .lta-gate').forEach(function(s) { s.classList.remove('visible'); });
       document.getElementById('ltaProgress').style.display = 'none';
       var disclaimer = document.getElementById('ltaDisclaimer');
@@ -388,16 +435,17 @@
       var successEl = document.getElementById('ltaSuccess');
       successEl.classList.add('visible');
       document.getElementById('ltaSuccessMsg').textContent =
-        'Thanks ' + payload.first_name + '! Check ' + payload.email + ' \u2014 your personalised Family Tax Advantage Report will arrive within a few minutes.';
+        'Thanks ' + payload.first_name + '! Check ' + payload.email + ' — your personalised Family Tax Advantage Report will arrive within a few minutes.';
     })
     .catch(function() {
+      clearTimeout(timeoutId);
       // Show inline error banner
       if (submitErr) submitErr.classList.add('show');
       btn.disabled = false;
       btn.textContent = 'Get My Free Tax Report';
-      // 3-second cooldown before allowing re-submit
-      setTimeout(function() { isSubmitting = false; }, 3000);
+      isSubmitting = false;
     });
+
   }
 
   // ============================================================

@@ -18,6 +18,12 @@
 
 <div class="lta-root" id="ltaRoot">
 
+  <noscript>
+    <div class="lta-submit-error show" style="display:block; margin-bottom:16px;">
+      This form requires JavaScript to run. Please enable JavaScript or email <a href="mailto:chris@lyros.com.au">chris@lyros.com.au</a>.
+    </div>
+  </noscript>
+
   <!-- Header -->
   <div class="lta-header">
     <div class="lta-badge">Free Analysis Tool</div>
@@ -126,8 +132,13 @@
       <div class="lta-error-msg" id="errAdultAges">Select at least one age range</div>
     </div>
 
+    <div class="lta-field" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;" aria-hidden="true">
+      <label class="lta-label" for="fWebsite">Website</label>
+      <input class="lta-input" type="text" id="fWebsite" name="website" tabindex="-1" autocomplete="off" />
+    </div>
+
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(1)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(1)">Continue</button>
     </div>
   </div>
 
@@ -201,8 +212,8 @@
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(2)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(2)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(2)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(2)">Continue</button>
     </div>
   </div>
 
@@ -269,8 +280,8 @@
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(3)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(3)">Continue to Contact Details</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(3)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(3)">Continue to Contact Details</button>
     </div>
   </div>
 
@@ -279,8 +290,8 @@
     <h3>Want a Deeper Analysis?</h3>
     <p>Answer a few more questions about super, deductions, childcare, and recent life events for a more detailed report.</p>
     <div class="lta-gate-btns">
-      <button class="lta-btn lta-btn-secondary" onclick="ltaSkipDeep()">Skip — Quick Snapshot is Fine</button>
-      <button class="lta-btn lta-btn-primary" style="width:auto;" onclick="ltaStartDeep()">Yes, Go Deeper</button>
+      <button type="button" class="lta-btn lta-btn-secondary" onclick="ltaSkipDeep()">Skip — Quick Snapshot is Fine</button>
+      <button type="button" class="lta-btn lta-btn-primary" style="width:auto;" onclick="ltaStartDeep()">Yes, Go Deeper</button>
     </div>
   </div>
 
@@ -341,8 +352,8 @@
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(4)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(4)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(4)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(4)">Continue</button>
     </div>
   </div>
 
@@ -390,8 +401,8 @@
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(5)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(5)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(5)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(5)">Continue</button>
     </div>
   </div>
 
@@ -437,8 +448,8 @@
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(6)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(6)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(6)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(6)">Continue</button>
     </div>
   </div>
 
@@ -486,8 +497,8 @@
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(7)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(7)">Continue</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(7)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(7)">Continue</button>
     </div>
   </div>
 
@@ -517,8 +528,8 @@
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBack(8)">← Back</button>
-      <button class="lta-btn lta-btn-primary" onclick="ltaNext(8)">Continue to Contact Details</button>
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBack(8)">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" onclick="ltaNext(8)">Continue to Contact Details</button>
     </div>
   </div>
 
@@ -566,8 +577,8 @@
     </div>
 
     <div class="lta-nav-row">
-      <button class="lta-btn lta-btn-ghost" onclick="ltaBackContact()">← Back</button>
-      <button class="lta-btn lta-btn-primary" id="ltaSubmitBtn" onclick="ltaSubmit()">
+      <button type="button" class="lta-btn lta-btn-ghost" onclick="ltaBackContact()">← Back</button>
+      <button type="button" class="lta-btn lta-btn-primary" id="ltaSubmitBtn" onclick="ltaSubmit()">
         Get My Free Tax Report
       </button>
     </div>
